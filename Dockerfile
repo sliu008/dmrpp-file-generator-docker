@@ -19,6 +19,7 @@ ENV HOME="/home/worker" PATH="/home/worker/miniconda3/bin:${PATH}"
 
 
 RUN mkdir $HOME/build
+RUN mkdir $HOME/dmrpp
 
 ENV BUILD=$HOME/build 
 

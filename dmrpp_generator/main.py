@@ -1,7 +1,7 @@
 from cumulus_process import Process, s3
 from re import match, search
 import os
-
+from tempfile import mkdtemp
 
 class DMRPPGenerator(Process):
     """
@@ -12,6 +12,13 @@ class DMRPPGenerator(Process):
 
     def __init__(self, **kwargs):
         self.processing_regex = '.*\\.(h(e)?5|nc(4)?)(\\.bz2|\\.gz|\\.Z)?'
+
+        path = kwargs.get('path')
+        if path is not None:
+            path = os.path.join(path, '')
+            new_path = mkdtemp(prefix=path)
+            kwargs['path'] = new_path
+
         super(DMRPPGenerator, self).__init__(**kwargs)
         self.path = self.path.rstrip('/') + "/"
 
